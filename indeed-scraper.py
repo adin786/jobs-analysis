@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import time
 
 def get_url_page(url_start, page):
     if page==0:
@@ -53,6 +54,7 @@ class IndeedScraper:
                 if verbose: print(f'\nPage:{i} url:{url_page}')
 
                 # Request page
+                time.sleep(1)
                 page = requests.get(url_page, headers=self.headers)
                 soup = BeautifulSoup(page.content, 'html.parser')
 
@@ -97,6 +99,7 @@ class IndeedScraper:
 
                 if df_page.empty:
                     if verbose: print(f'Blank result, retrying ({attempt} of {attempts} attempts)')
+                    time.sleep(1)
                     continue
                 else:
                     self.df = self.df.append(df_page, ignore_index=True)
@@ -108,6 +111,9 @@ class IndeedScraper:
         self.title = get_title(title)
         self.loc = loc
         self.url = f'{self.base_url}{self.base_url_jobs}q={self.title}&l={self.loc}'
+        
+    def drop_duplicates(self):
+        self.df = self.df.drop_duplicates('id')
 
      
 # Create instance of class
@@ -117,10 +123,14 @@ scraper = IndeedScraper('Data Scientist', 'Scotland')
 # print(scraper)
 
 # Run the scraper and print it
-scraper.scrape(10, verbose=False)
+scraper.scrape(2, verbose=True)
 print(scraper)
 
 # Update the search query, run the scraper and print it
 scraper.new_query('Data Analyst', 'Edinburgh')
-scraper.scrape(10, verbose=False)
+scraper.scrape(2, verbose=True)
+print(scraper)
+
+# Remove duplicates
+scraper.drop_duplicates()
 print(scraper)
