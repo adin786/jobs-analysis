@@ -10,6 +10,7 @@ def get_url_page(url_start, page):
         url_page = f'{url_start}&start={page*10}'
         return url_page
     
+    
 def get_title(title):
     if isinstance(title,str):
         title = title.lower().strip().replace(' ','+')
@@ -18,7 +19,7 @@ def get_title(title):
     return title
 
 
-class IndeedScraper:
+class SearchPageScraper:
     base_url = 'https://uk.indeed.com'
     base_url_jobs = '/jobs?'
     
@@ -98,7 +99,7 @@ class IndeedScraper:
                     }, ignore_index=True)
 
                 if df_page.empty:
-                    if verbose: print(f'Blank result, retrying ({attempt} of {attempts} attempts)')
+                    if verbose: print(f'Blank result, retrying ({attempt+1} of {attempts} attempts)')
                     time.sleep(1)
                     continue
                 else:
@@ -114,23 +115,36 @@ class IndeedScraper:
         
     def drop_duplicates(self):
         self.df = self.df.drop_duplicates('id')
+        
+class JobPageScraper:
+    
+    def __init__(self, url):
+        self.url = url
+        self.headers = {'Uer-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'}
+        self.data = None
 
-     
-# Create instance of class
-scraper = IndeedScraper('Data Scientist', 'Scotland')
+    def __repr__(self):
+        repr = f'JobPageScraper(url="{self.url}")'
+        return repr
+    
+    def scrape(self, attempts = 3, verbose=True):
+        data = self.data
+        # Try a dict instead
+        
+        # Retry if blank result
+        for attempt in range(attempts):
+            # if verbose: print(f'\nPage:{i} url:{url_page}')
 
-# Print the object before
-# print(scraper)
+            # Request page
+            time.sleep(1)
+            page = requests.get(url, headers=self.headers)
+            soup = BeautifulSoup(page.content, 'html.parser')
 
-# Run the scraper and print it
-scraper.scrape(2, verbose=True)
-print(scraper)
-
-# Update the search query, run the scraper and print it
-scraper.new_query('Data Analyst', 'Edinburgh')
-scraper.scrape(2, verbose=True)
-print(scraper)
-
-# Remove duplicates
-scraper.drop_duplicates()
-print(scraper)
+            if data is None:
+                if verbose: print(f'Blank result, retrying ({attempt+1} of {attempts} attempts)')
+                time.sleep(1)
+                continue
+            else:
+                break
+        return
+ 
