@@ -1,2 +1,3 @@
 .vscode/settings.json
 indeed/__pycache__
+.vscode/launch.json
