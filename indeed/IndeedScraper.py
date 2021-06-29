@@ -24,47 +24,44 @@ def get_job_search(url, base_url, headers, verbose=True):
     soup = BeautifulSoup(page.content, 'html.parser')
 
     # Extract list of jobcards
-    jobs_list = soup.find(id='resultsCol')
     jobcards = soup.find_all(class_='jobsearch-SerpJobCard')
-
-    # Loop through each job result listed on page
     df_page = pd.DataFrame()
-    for j, card in enumerate(jobcards):
-        # if j > 1: break
 
-        card_title = card.find(class_='jobtitle')
-        card_title_str = card_title.text.strip()
-        card_url = base_url + card_title['href']
+    if len(jobcards) > 0:
+        # Loop through each job result listed on page
+        for j, card in enumerate(jobcards):
+            # if j > 1: break
 
-        card_id = card['id']
+            card_title = card.find(class_='jobtitle')
+            card_title_str = card_title.text.strip()
+            card_url = base_url + card_title['href']
 
-        card_company = card.find('span', class_='company')
-        card_company = card_company.text.strip()
+            card_id = card['id']
 
-        card_loc = card.find(class_='location')
-        card_loc_str = card_loc.text.strip()
+            card_company = card.find('span', class_='company')
+            card_company = card_company.text.strip()
 
-        card_summary = card.find(class_='summary')
-        card_summary_str = card_summary.text.strip()
+            card_loc = card.find(class_='location')
+            card_loc_str = card_loc.text.strip()
 
-        card_date = card.find(class_='date')
-        card_date_str = card_date.text.strip()
+            card_summary = card.find(class_='summary')
+            card_summary_str = card_summary.text.strip()
 
-        if verbose: print(f'job:{j:2} title:{card_title_str[:20]:20} company:{card_company}')
+            card_date = card.find(class_='date')
+            card_date_str = card_date.text.strip()
+               
+            if verbose: print(f'job:{j:2} title:{card_title_str[:20]:20} company:{card_company}')
 
-        df_page = df_page.append({
-            'title': card_title_str,
-            'id': card_id,
-            'company': card_company,
-            'url': card_url,
-            'location': card_loc_str,
-            'summary': card_summary_str,
-            'date': card_date_str
-        }, ignore_index=True)
+            df_page = df_page.append({
+                'title': card_title_str,
+                'id': card_id,
+                'company': card_company,
+                'url': card_url,
+                'location': card_loc_str,
+                'summary': card_summary_str,
+                'date': card_date_str
+            }, ignore_index=True)
         
-        
-    if df_page.empty:
-        print(jobs_list.prettify())
     return df_page
 
 def get_job_description(url, headers):
@@ -127,7 +124,6 @@ class SearchPageScraper:
 
                 if df_page.empty:
                     if verbose: print(f'Blank result, retrying ({attempt+1} of {attempts} attempts)')
-                    time.sleep(1)
                     continue
                 else:
                     self.df = self.df.append(df_page, ignore_index=True)
@@ -158,7 +154,7 @@ class SearchPageScraper:
             else:
                 time.sleep(1)
                 descr_dict = get_job_description(row.url, self.headers)
-                print(f'row {i:2}, description added ({len(descr_dict)} characters)')
+                print(f'row {i:2}, description added ({len(descr_dict["description"])} characters)')
                 
                 row.description = descr_dict['description']
                 row.description_html = descr_dict['description_html']
