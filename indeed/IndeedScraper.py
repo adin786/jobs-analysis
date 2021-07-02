@@ -277,10 +277,16 @@ class SearchPageScraper:
                 continue
             else:
                 time.sleep(self.delay)
-                descr_dict = get_job_description(row.url, self.headers)
-                if verbose: print(f'desc:{i:2} {comp_name:<10}... description added ({len(descr_dict["description"])} characters)')
-                logger.info(f'desc:{i:2} {comp_name:<10}... description added ({len(descr_dict["description"])} characters)')
-                
+                try:
+                    descr_dict = get_job_description(row.url, self.headers)
+                    if verbose: print(f'desc:{i:2} {comp_name:<10}... description added ({len(descr_dict["description"])} characters)')
+                    logger.info(f'desc:{i:2} {comp_name:<10}... description added ({len(descr_dict["description"])} characters)')    
+                except:
+                    descr = {'description': '',
+                             'description_html': ''}
+                    logger.info(f'desc:{i:2} {comp_name:<10}... FAILED to read description ({len(descr_dict["description"])} characters)')    
+                    
+
                 self.df.iloc[self.df.index[i], self.df.columns.get_loc('description')] = descr_dict['description']
                 self.df.iloc[self.df.index[i], self.df.columns.get_loc('description_html')] = descr_dict['description_html']
                 
