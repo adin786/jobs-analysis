@@ -162,11 +162,9 @@ def batch_scrape(queries, pages=5, delay=5, append=False, verbose=False):
         scraper.drop_duplicates()
         
         if i == 0 and not append:
-            if not os.path.isdir('data'):
-                os.mkdir('data')
-            scraper.save('data/data.csv', append=False)
+            scraper.save('data.csv', append=False)
         else:
-            scraper.save('data/data.csv', append=True)
+            scraper.save('data.csv', append=True)
     return
 
 

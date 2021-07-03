@@ -4,3 +4,5 @@ indeed/__pycache__
 data.csv
 data_backup.csv
 file.log
+data/data_backup3.csv
+data/data_backup2.csv
