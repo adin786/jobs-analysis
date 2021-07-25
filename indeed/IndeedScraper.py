@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import re
 import logging
+import os
 
 # Create a custom logger
 logger = logging.getLogger(__name__)
@@ -150,7 +151,7 @@ def get_job_description(url, headers):
              'description_html':str(description_html)}         
     return descr
 
-def batch_scrape(queries, pages=5, delay=5, append=False, verbose=False):
+def batch_scrape(queries, pages=5, delay=5, append=False, f_name='data.csv', verbose=False):
     for i, query in enumerate(queries):
         print(f'Looping through query: "{query[0]}" in "{query[1]}"')
         logger.info(f'Looping through query: "{query[0]}" in "{query[1]}"')
@@ -164,9 +165,9 @@ def batch_scrape(queries, pages=5, delay=5, append=False, verbose=False):
         if i == 0 and not append:
             if not os.path.isdir('data'):
                 os.mkdir('data')
-            scraper.save('data/data.csv', append=False)
+            scraper.save(os.path.join('data',f_name), append=False)
         else:
-            scraper.save('data/data.csv', append=True)
+            scraper.save(os.path.join('data',f_name), append=True)
     return
 
 
