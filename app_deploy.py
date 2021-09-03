@@ -126,6 +126,7 @@ elif page_sel.lower() == 'classification':
     def load_clf():
         nltk.download('stopwords')
         nltk.download('punkt')
+        nltk.download('wordnet')
         with open('clf.pkl','rb') as f:
             clf = pickle.load(f)
         return clf
