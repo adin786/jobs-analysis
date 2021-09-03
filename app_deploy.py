@@ -121,12 +121,11 @@ elif page_sel.lower() == 'classification':
     process_button = st.button('Classify')
     
     nltk.download('stopwords')
+    nltk.download('punkt')
+    nltk.download('wordnet')
 
     @st.cache(suppress_st_warning=True, show_spinner=False)
     def load_clf():
-        nltk.download('stopwords')
-        nltk.download('punkt')
-        nltk.download('wordnet')
         with open('clf.pkl','rb') as f:
             clf = pickle.load(f)
         return clf
