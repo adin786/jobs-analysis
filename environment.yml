@@ -15,4 +15,3 @@ dependencies:
   - pip:
     - imbalanced-learn==0.8.0
     - streamlit==0.88.0
-prefix: C:\Users\adin7\.conda\envs\jobs-analysis
