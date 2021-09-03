@@ -124,6 +124,8 @@ elif page_sel.lower() == 'classification':
 
     @st.cache(suppress_st_warning=True, show_spinner=False)
     def load_clf():
+        nltk.download('stopwords')
+        nltk.download('punkt')
         with open('clf.pkl','rb') as f:
             clf = pickle.load(f)
         return clf
