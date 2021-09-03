@@ -6,6 +6,7 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import nltk
 
 page_sel = st.sidebar.selectbox('Select a page here:',('Data Exploration','Classification'), index=1)
 
@@ -118,12 +119,13 @@ elif page_sel.lower() == 'classification':
 
     input_str = st.text_area('Copy & paste a job description here', height=200)
     process_button = st.button('Classify')
+    
+    nltk.download('stopwords')
 
     @st.cache(suppress_st_warning=True, show_spinner=False)
     def load_clf():
         with open('clf.pkl','rb') as f:
             clf = pickle.load(f)
-            time.sleep(5)
         return clf
 
     clf = load_clf()
