@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import nltk
+from sklearn.base import clone
 
 page_sel = st.sidebar.selectbox('Select a page here:',('Data Exploration','Classification'), index=1)
 
@@ -124,13 +125,15 @@ elif page_sel.lower() == 'classification':
     nltk.download('punkt')
     nltk.download('wordnet')
 
-    @st.cache(suppress_st_warning=True, show_spinner=False)
+    @st.cache(suppress_st_warning=True, show_spinner=False,allow_output_mutation=True)
     def load_clf():
         with open('clf.pkl','rb') as f:
             clf = pickle.load(f)
+            st.write('Classifier reloaded')
         return clf
 
-    clf = load_clf()
+    clf_ = load_clf()
+    clf = clone(clf_)
 
     if process_button:
         
