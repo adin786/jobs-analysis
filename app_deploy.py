@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import nltk
-from sklearn.base import clone
+from copy import deepcopy
 
 page_sel = st.sidebar.selectbox('Select a page here:',('Data Exploration','Classification'), index=1)
 
@@ -133,7 +133,7 @@ elif page_sel.lower() == 'classification':
         return clf
 
     clf_ = load_clf()
-    clf = clone(clf_)
+    clf = deepcopy(clf_)
 
     if process_button:
         
