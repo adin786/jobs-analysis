@@ -31,7 +31,7 @@ nltk.download('stopwords', quiet=True)
 nltk.download('punkt', quiet=True)
 nltk.download('wordnet', quiet=True)
 
-@st.cache(suppress_st_warning=True, show_spinner=False,allow_output_mutation=True)
+@st.cache(suppress_st_warning=True, show_spinner=False, allow_output_mutation=True)
 def load_clf():
     with open('clf.pkl','rb') as f:
         clf = pickle.load(f)
@@ -39,7 +39,7 @@ def load_clf():
     return clf
 
 clf_ = load_clf()
-clf = deepcopy(clf_)
+clf = deepcopy(clf_) # Coppy with trained params
 
 if process_button:
     

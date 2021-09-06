@@ -1,4 +1,4 @@
-import indeed.IndeedScraper as ind
+import IndeedScraper as ind
 
 # ind.batch_scrape([('Data Scientist', 'Scotland'),
 #                   ('Data Engineer', 'Scotland'),
