@@ -1,0 +1,7 @@
+matplotlib==3.3.4
+nltk==3.6.2
+numpy==1.20.2
+sklearn==0.24.2
+seaborn==0.11.1
+wordcloud==1.8.1
+pip==21.2.4
