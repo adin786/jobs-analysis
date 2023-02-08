@@ -19,14 +19,14 @@ Below shows the class distribution of my dataset after labelling the each job by
 
 Ignoring this, the dataset included a large number of `Data Scientist` and `Data Analyst` positions. However `Data Engineer` jobs seemed to be poorly represented on Indeed's database.
 
-![Class distribution](/assets/images/overall_class_distrib.png)
+![Class distribution](assets/images/overall_class_distrib.png)
 
 ### Manually encoded "skills"
 I manually extracted common skills from the description text. In the future I may build a Named Entity Recognition model to automatically extract these kinds of tags but for now these are manually encoded using regular expressions.
 
 Below shows a heatmap of how these "skill tags" varied depending on the job title, normalised against class distribution.
 
-![Skills heatmap](/assets/images/jobs/overall_skills_heatmap.png)
+![Skills heatmap](assets/images/jobs/overall_skills_heatmap.png)
 
 As a summary of what this illustrates:
 - Predictably, excel is required quite universally across disciplines, esp. in **Admin** roles.
@@ -67,7 +67,7 @@ The web-app is (should be) live at [the following link](https://share.streamlit.
 
 Anyone can paste in any job advert text, and the model will classify it as 
 
-![deployment web-app](/assets/images/deployed-site.png)
+![deployment web-app](assets/images/deployed-site.png)
 
 ## Future work
 - In the future I would expand the model to include other scraped job title classes, not just DS/DE/DA.
