@@ -26,7 +26,7 @@ I manually extracted common skills from the description text. In the future I ma
 
 Below shows a heatmap of how these "skill tags" varied depending on the job title, normalised against class distribution.
 
-![Skills heatmap](assets/images/jobs/overall_skills_heatmap.png)
+![Skills heatmap](assets/images/overall_skills_heatmap.png)
 
 As a summary of what this illustrates:
 - Predictably, excel is required quite universally across disciplines, esp. in **Admin** roles.
