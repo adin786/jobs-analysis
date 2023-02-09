@@ -5,4 +5,5 @@ data/
 indeed/__pycache__/
 workspace.code-workspace
 __pycache__/clf_funcs.cpython-38.pyc
-app/__pycache__/clf_funcs.cpython-38.pyc
+**/*/__pycache__
+**/*.pyc
