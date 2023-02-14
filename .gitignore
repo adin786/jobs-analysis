@@ -7,3 +7,4 @@ workspace.code-workspace
 __pycache__/clf_funcs.cpython-38.pyc
 **/*/__pycache__
 **/*.pyc
+**/*.egg-info

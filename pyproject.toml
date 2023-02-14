@@ -1,0 +1,21 @@
+[build-system]
+requires= ["setuptools >= 61.0.0", "setuptools_scm[toml]>=7.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "indeed-scraper"
+description = "Web scraping tool for www.indeed.co.uk jobs"
+readme = "README.md"
+requires-python = ">=3.10.10"
+dynamic = ["version"]
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["indeed_scraper"]
+exclude = [
+    "*.json",
+    "*.md"
+]
+namespaces = false
