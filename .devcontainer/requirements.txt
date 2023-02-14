@@ -5,4 +5,9 @@ seaborn==0.12.2
 pandas==1.5.3
 spacy==3.5.0
 bertopic==0.13.0
-ipykernel==6.21.1
+beautifulsoup4==4.11.2
+pydantic==1.10.4
+ipykernel
+pre-commit
+black
+isort

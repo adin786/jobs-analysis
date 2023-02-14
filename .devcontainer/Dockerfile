@@ -7,7 +7,7 @@ RUN apt-get update && \
 WORKDIR /jupyter-env
 RUN python -m venv .
 RUN --mount=type=cache,target=/root/.cache \
-    bash -c "source bin/activate && pip install jupyterlab"
+    bash -c "source bin/activate && pip install jupyterlab ipywidgets"
 
 WORKDIR /project
 COPY requirements.txt .
